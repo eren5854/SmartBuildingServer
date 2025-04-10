@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using SmartBuildingServer.Domain.Enums;
+using SmartBuildingServer.Domain.Rooms;
+using SmartBuildingServer.Domain.Sensors;
 
 namespace SmartBuildingServer.Domain.Users;
 public sealed class AppUser : IdentityUser<Guid>
@@ -9,6 +11,9 @@ public sealed class AppUser : IdentityUser<Guid>
     public string FullName => string.Join(" ", FirstName, LastName);
 
     public UserRoleSmartEnum Role { get; set; } = UserRoleSmartEnum.User;
+
+    public List<Room>? Rooms { get; set; }
+    public List<Device>? Devices { get; set; }
 
     public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenExpires { get; set; }
