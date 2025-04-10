@@ -11,6 +11,11 @@ internal sealed class GetAllRoomQueryHandler(
     public async Task<Result<List<Room>>> Handle(GetAllRoomQuery request, CancellationToken cancellationToken)
     {
         List<Room> rooms = await roomRepository.GetAll().ToListAsync(cancellationToken);
+        if(rooms is null || rooms.Count == 0)
+        {
+            return Result<List<Room>>.Failure("Hiç oda bulunamadı");
+        }
 
+        return Result<List<Room>>.Succeed(rooms);
     }
 }
