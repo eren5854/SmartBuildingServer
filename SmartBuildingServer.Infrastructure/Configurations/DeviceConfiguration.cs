@@ -4,12 +4,12 @@ using SmartBuildingServer.Domain.Enums;
 using SmartBuildingServer.Domain.Sensors;
 
 namespace SmartBuildingServer.Infrastructure.Configurations;
-public sealed class SensorConfiguration : IEntityTypeConfiguration<Sensor>
+public sealed class DeviceConfiguration : IEntityTypeConfiguration<Device>
 {
-    public void Configure(EntityTypeBuilder<Sensor> builder)
+    public void Configure(EntityTypeBuilder<Device> builder)
     {
         builder
-            .Property(p => p.SensorName)
+            .Property(p => p.DeviceName)
             .IsRequired()
             .HasColumnType("varchar(250)")
             .HasMaxLength(250);
@@ -19,10 +19,10 @@ public sealed class SensorConfiguration : IEntityTypeConfiguration<Sensor>
             .HasColumnType("varchar(1000)")
             .HasMaxLength(1000);
 
-        //builder
-        //    .Property(p => p.SensorType)
-        //    .HasConversion(p => p.Value,
-        //    v => SensorTypeSmartEnum.FromValue(v));
+        builder
+            .Property(p => p.DeviceType)
+            .HasConversion(p => p.Value,
+            v => DeviceTypeSmartEnum.FromValue(v));
 
         builder.HasQueryFilter(filter => !filter.IsDeleted);
     }

@@ -6,11 +6,13 @@ namespace SmartBuildingServer.Domain.Sensors;
 public sealed class SensorData : Entity
 {
     public SensorTypeSmartEnum SensorType = SensorTypeSmartEnum.Other;
-    public string? PinName { get; set; }
+    public string DataName { get; set; } = string.Empty;
+    public int PinNumber { get; set; } = default!;
     public double? Value { get; set; }
+    public string? Value2 { get; set; }
 
     [JsonIgnore]
-    public Guid? SensorId { get; set; }
+    public Guid? DeviceId { get; set; }
     [JsonIgnore]
-    public Sensor? Sensor { get; set; }
+    public Device? Device { get; set; }
 }

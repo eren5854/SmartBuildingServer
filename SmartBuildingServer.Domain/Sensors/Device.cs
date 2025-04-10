@@ -5,16 +5,16 @@ using SmartBuildingServer.Domain.Users;
 using System.Text.Json.Serialization;
 
 namespace SmartBuildingServer.Domain.Sensors;
-public sealed class Sensor : Entity
+public sealed class Device : Entity
 {
-    public string SensorName { get; set; } = string.Empty;
+    public string DeviceName { get; set; } = string.Empty;
     public string? Description { get; set; }
     public string SerialNo { get; set; } = string.Empty;
-    public string? Status { get; set; }
+    public bool? Status { get; set; }
 
     public string? SecretKey { get; set; }
 
-    //public SensorTypeSmartEnum SensorType { get; set; } = SensorTypeSmartEnum.Other;
+    public DeviceTypeSmartEnum DeviceType { get; set; } = DeviceTypeSmartEnum.Other;
 
     [JsonIgnore]
     public Guid? AppUserId { get; set; }
