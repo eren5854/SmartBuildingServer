@@ -8,7 +8,7 @@ namespace SmartBuildingServer.Domain.Sensors;
 public sealed class Device : Entity
 {
     public string DeviceName { get; set; } = string.Empty;
-    public string? Description { get; set; }
+    public string? DeviceDescription { get; set; }
     public string SerialNo { get; set; } = string.Empty;
     public bool? Status { get; set; }
 

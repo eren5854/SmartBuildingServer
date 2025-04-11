@@ -11,12 +11,12 @@ public sealed class DeviceConfiguration : IEntityTypeConfiguration<Device>
         builder
             .Property(p => p.DeviceName)
             .IsRequired()
-            .HasColumnType("varchar(250)")
+            .HasColumnType("varchar(300)")
             .HasMaxLength(250);
 
         builder
-            .Property(p => p.Description)
-            .HasColumnType("varchar(1000)")
+            .Property(p => p.DeviceDescription)
+            .HasColumnType("varchar(1500)")
             .HasMaxLength(1000);
 
         builder
