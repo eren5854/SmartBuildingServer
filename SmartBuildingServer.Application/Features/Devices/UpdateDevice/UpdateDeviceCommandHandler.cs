@@ -28,5 +28,9 @@ internal sealed class UpdateDeviceCommandHandler(
         mapper.Map(request, device);
         device.UpdatedAt = DateTime.Now;
         device.UpdatedBy = "Admin";
+
+        deviceRepository.Update(device);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+        return Result<string>.Succeed("Cihaz güncellemesi başarılı");
     }
 }
