@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using SmartBuildingServer.Application.Features.Auth.Register;
 using SmartBuildingServer.Application.Features.Devices.CreateDevice;
+using SmartBuildingServer.Application.Features.Devices.UpdateDevice;
 using SmartBuildingServer.Application.Features.Rooms.CreateRoom;
 using SmartBuildingServer.Application.Features.Rooms.UpdateRoom;
+using SmartBuildingServer.Application.Features.SensorDatas.CreateSensorData;
 using SmartBuildingServer.Domain.Rooms;
 using SmartBuildingServer.Domain.Sensors;
 using SmartBuildingServer.Domain.Users;
@@ -18,5 +20,8 @@ public sealed class MappingProfile : Profile
         CreateMap<UpdateRoomCommand, Room>();
 
         CreateMap<CreateDeviceCommand, Device>();
+        CreateMap<UpdateDeviceCommand, Device>();
+
+        CreateMap<CreateSensorDataCommand, SensorData>();
     }
 }
