@@ -2,6 +2,7 @@
 using ED.Result;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SmartBuildingServer.Domain.Logs;
 using SmartBuildingServer.Domain.Repositories;
 using SmartBuildingServer.Domain.Sensors;
 
@@ -9,6 +10,7 @@ namespace SmartBuildingServer.Application.Features.SensorDatas.UpdateSensorDataF
 internal sealed class UpdateSensorDataFromDeviceCommandHandler(
     IDeviceRepository deviceRepository,
     ISensorDataRepository sensorDataRepository,
+    ISensorDataHistoryRepository sensorDataHistoryRepository,
     IUnitOfWork unitOfWork) : IRequestHandler<UpdateSensorDataFromDeviceCommand, Result<string>>
 {
     public async Task<Result<string>> Handle(UpdateSensorDataFromDeviceCommand request, CancellationToken cancellationToken)
@@ -24,18 +26,28 @@ internal sealed class UpdateSensorDataFromDeviceCommandHandler(
         if (device.SensorDatas is null)
             return Result<string>.Failure("Sensor data not found");
 
-        foreach (var updateDto in request.SensorDatas)
+        foreach (var item in request.SensorDatas)
         {
-            var sensorData = device.SensorDatas.FirstOrDefault(s => s.PinNumber == updateDto.PinNumber);
+            var sensorData = device.SensorDatas.FirstOrDefault(s => s.PinNumber == item.PinNumber);
 
             if (sensorData is null)
-                return Result<string>.Failure($"Sensor data with pin {updateDto.PinNumber} not found");
+                return Result<string>.Failure($"Sensor data with pin {item.PinNumber} not found");
 
-            sensorData.Value = updateDto.Value;
-            sensorData.Value2 = updateDto.Value2;
+            sensorData.Value = item.Value;
+            sensorData.Value2 = item.Value2;
 
+            SensorDataHistory sensorDataHistory = new()
+            {
+                SensorDataId = sensorData.Id,
+                Value = item.Value,
+                Value2 = item.Value2,
+            };
+
+            await sensorDataHistoryRepository.AddAsync(sensorDataHistory, cancellationToken);
             sensorDataRepository.Update(sensorData);
         }
+
+       
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
