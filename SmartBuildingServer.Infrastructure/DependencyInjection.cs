@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ED.GenericRepository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +33,7 @@ public static class DependencyInjection
             options.Lockout.AllowedForNewUsers = true;
         }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-        //services.AddScoped<IUnitOfWork>(srv => srv.GetRequiredService<ApplicationDbContext>());
+        services.AddScoped<IUnitOfWork>(srv => srv.GetRequiredService<ApplicationDbContext>());
 
         services.Configure<JwtOption>(configuration.GetSection("Jwt"));
         services.ConfigureOptions<JwtTokenSetupConfiguration>();

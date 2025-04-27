@@ -26,13 +26,11 @@ internal sealed class UpdateSensorDataFromDeviceCommandHandler(
 
         foreach (var updateDto in request.SensorDatas)
         {
-            // cihazın içindeki sensordata'lar arasında pin numarası eşleşen kaydı bul
             var sensorData = device.SensorDatas.FirstOrDefault(s => s.PinNumber == updateDto.PinNumber);
 
             if (sensorData is null)
                 return Result<string>.Failure($"Sensor data with pin {updateDto.PinNumber} not found");
 
-            // Değerleri güncelle
             sensorData.Value = updateDto.Value;
             sensorData.Value2 = updateDto.Value2;
 
