@@ -23,7 +23,7 @@ public static class ExtensionMiddleware
                     Role = UserRoleSmartEnum.Admin,
                     EmailConfirmed = true,
                     CreatedBy = "System",
-                    CreatedDate = DateTime.Now,
+                    CreatedDate = DateTime.UtcNow,
                 };
                 userManager.CreateAsync(user, "Password123*").Wait();
             }

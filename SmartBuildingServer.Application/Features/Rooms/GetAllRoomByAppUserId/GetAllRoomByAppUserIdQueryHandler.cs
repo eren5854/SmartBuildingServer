@@ -10,7 +10,14 @@ internal sealed class GetAllRoomByAppUserIdQueryHandler(
 {
     public async Task<Result<List<Room>>> Handle(GetAllRoomByAppUserIdQuery request, CancellationToken cancellationToken)
     {
-        List<Room> rooms = await roomRepository.GetAll().Where(g => g.AppUserId == request.AppUserId).OrderBy(o => o.CreatedAt)
+        List<Room> rooms = await roomRepository
+            .GetAll()
+            .Where(g => g.AppUserId == request.AppUserId)
+            .Include(i => i.Devices!
+                    .OrderBy(o => o.CreatedAt))
+            .ThenInclude(t => t.SensorDatas!
+                    .OrderBy(o => o.CreatedAt))
+            .OrderBy(o => o.CreatedAt)
             .ToListAsync(cancellationToken);
 
         if (rooms is null || rooms.Count == 0)

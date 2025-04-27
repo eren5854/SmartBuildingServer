@@ -25,10 +25,10 @@ public sealed class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRo
             .WithMany(p => p.Devices)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.Entity<Device>()
-            .HasOne(p => p.AppUser)
-            .WithMany(p => p.Devices)
-            .OnDelete(DeleteBehavior.NoAction);
+        //builder.Entity<Device>()
+        //    .HasOne(p => p.AppUser)
+        //    .WithMany(p => p.Devices)
+        //    .OnDelete(DeleteBehavior.NoAction);
 
         builder.Entity<SensorData>()
             .HasOne(p => p.Device)

@@ -16,17 +16,17 @@ public sealed class Device : Entity
 
     public DeviceTypeSmartEnum DeviceType { get; set; } = DeviceTypeSmartEnum.Other;
 
-    [JsonIgnore]
-    public Guid? AppUserId { get; set; }
-    [JsonIgnore]
-    public AppUser? AppUser { get; set; }
+    //[JsonIgnore]
+    //public Guid? AppUserId { get; set; }
+    //[JsonIgnore]
+    //public AppUser? AppUser { get; set; }
 
-    public object? RoomInfo => new
-    {
-        RoomId = RoomId,
-        RoomName = Room?.RoomName,
-        RoomDescription = Room?.RoomDescription,
-    };
+    //public object? RoomInfo => new
+    //{
+    //    RoomId = RoomId,
+    //    RoomName = Room?.RoomName,
+    //    RoomDescription = Room?.RoomDescription,
+    //};
 
     [JsonIgnore]
     public Guid? RoomId { get; set; }

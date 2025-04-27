@@ -20,7 +20,7 @@ internal sealed class CreateRoomCommandHandler(
         }
 
         Room room = mapper.Map<Room>(request);
-        room.CreatedAt = DateTime.Now;
+        room.CreatedAt = DateTime.UtcNow;
         room.CreatedBy = "Admin";
 
         await roomRepository.AddAsync(room, cancellationToken);

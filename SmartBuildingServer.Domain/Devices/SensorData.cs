@@ -1,5 +1,6 @@
 ﻿using SmartBuildingServer.Domain.Entities;
 using SmartBuildingServer.Domain.Enums;
+using SmartBuildingServer.Domain.Logs;
 using System.Text.Json.Serialization;
 
 namespace SmartBuildingServer.Domain.Sensors;
@@ -10,6 +11,8 @@ public sealed class SensorData : Entity
     public int PinNumber { get; set; } = default!;
     public double? Value { get; set; }
     public string? Value2 { get; set; }
+
+    public List<SensorDataHistory>? SensorDataHistories { get; set; }
 
     [JsonIgnore]
     public Guid? DeviceId { get; set; }

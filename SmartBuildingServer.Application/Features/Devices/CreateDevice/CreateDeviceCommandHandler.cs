@@ -22,7 +22,7 @@ internal sealed class CreateDeviceCommandHandler(
         }
 
         Device device = mapper.Map<Device>(request);
-        device.CreatedAt = DateTime.Now;
+        device.CreatedAt = DateTime.UtcNow;
         device.CreatedBy = "Admin";
         device.SecretKey = generate.GenerateSecretKey();
         device.SerialNo = generate.GenerateDeviceSerialNo(device);

@@ -21,7 +21,7 @@ internal sealed class CreateSensorDataCommandHandler(
         }
 
         SensorData sensorData = mapper.Map<SensorData>(request);
-        sensorData.CreatedAt = DateTime.Now;
+        sensorData.CreatedAt = DateTime.UtcNow;
         sensorData.CreatedBy = "Admin";
         sensorData.Value = 0;
         sensorData.Value2 = "";

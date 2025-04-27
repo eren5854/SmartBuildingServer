@@ -28,7 +28,7 @@ internal sealed class RegisterCommandHandler(
 
         AppUser user = mapper.Map<AppUser>(request);
         user.CreatedBy = request.UserName;
-        user.CreatedDate = DateTime.Now;
+        user.CreatedDate = DateTime.UtcNow;
         user.SecretToken = generate.GenerateSecretKey();
         user.EmailConfirmed = true;
 

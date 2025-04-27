@@ -20,7 +20,7 @@ internal sealed class UpdateDeviceSecretKeyCommandHandler(
         }
 
         device.SecretKey = generate.GenerateSecretKey();
-        device.UpdatedAt = DateTime.Now;
+        device.UpdatedAt = DateTime.UtcNow;
         device.UpdatedBy = "Admin";
         deviceRepository.Update(device);
         await unitOfWork.SaveChangesAsync(cancellationToken);

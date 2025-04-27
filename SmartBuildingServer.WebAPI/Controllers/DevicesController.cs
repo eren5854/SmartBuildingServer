@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SmartBuildingServer.Application.Features.Devices.CreateDevice;
 using SmartBuildingServer.Application.Features.Devices.DeleteDevice;
 using SmartBuildingServer.Application.Features.Devices.GetAllDevice;
-using SmartBuildingServer.Application.Features.Devices.GetAllDeviceByAppUserId;
+using SmartBuildingServer.Application.Features.Devices.GetAllDeviceByRoomId;
 using SmartBuildingServer.Application.Features.Devices.GetDevice;
 using SmartBuildingServer.Application.Features.Devices.UpdateDevice;
 using SmartBuildingServer.Application.Features.Devices.UpdateDeviceSecretKey;
@@ -35,9 +35,9 @@ public sealed class DevicesController : ApiController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllByAppUserId(Guid AppUserId, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAllByRoomId(Guid RoomId, CancellationToken cancellationToken)
     {
-        var response = await _mediator.Send(new GetAllDeviceByAppUserIdQuery(AppUserId), cancellationToken);
+        var response = await _mediator.Send(new GetAllDeviceByRoomIdQuery(RoomId), cancellationToken);
         return StatusCode(response.StatusCode, response);
     }
 

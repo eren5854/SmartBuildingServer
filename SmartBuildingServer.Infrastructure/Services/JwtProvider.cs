@@ -28,7 +28,7 @@ internal class JwtProvider(
             new Claim(ClaimTypes.Role, user.Role.ToString())
         };
 
-        DateTime expires = DateTime.Now.AddMonths(6);
+        DateTime expires = DateTime.UtcNow.AddMonths(6);
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOption.Value.SecretKey));
 
@@ -36,7 +36,7 @@ internal class JwtProvider(
             issuer: jwtOption.Value.Issuer,
             audience: jwtOption.Value.Audience,
             claims: claims,
-            notBefore: DateTime.Now,
+            notBefore: DateTime.UtcNow,
             expires: expires,
             signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512));
 

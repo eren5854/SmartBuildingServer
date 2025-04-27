@@ -26,7 +26,7 @@ internal sealed class UpdateRoomCommandHandler(
         }
 
         mapper.Map(request, room);
-        room.UpdatedAt = DateTime.Now;
+        room.UpdatedAt = DateTime.UtcNow;
         room.UpdatedBy = "Admin";
 
         roomRepository.Update(room);

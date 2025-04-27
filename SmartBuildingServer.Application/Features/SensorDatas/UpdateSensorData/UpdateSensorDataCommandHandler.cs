@@ -20,7 +20,7 @@ internal sealed class UpdateSensorDataCommandHandler(
         }
 
         mapper.Map(request, sensorData);
-        sensorData.UpdatedAt = DateTime.Now;
+        sensorData.UpdatedAt = DateTime.UtcNow;
         sensorDataRepository.Update(sensorData);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return Result<string>.Succeed("Sensor data updated successfully");

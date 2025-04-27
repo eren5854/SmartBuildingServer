@@ -13,7 +13,7 @@ public sealed class AppUser : IdentityUser<Guid>
     public UserRoleSmartEnum Role { get; set; } = UserRoleSmartEnum.User;
 
     public List<Room>? Rooms { get; set; }
-    public List<Device>? Devices { get; set; }
+    //public List<Device>? Devices { get; set; }
 
     public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenExpires { get; set; }

@@ -13,7 +13,7 @@ internal sealed class LoginCommandHandler(
 {
     public async Task<Result<LoginCommandResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        string emailOrUsername = request.EmailOrUserName.ToUpper();
+        string emailOrUsername = request.EmailOrUserName;
         AppUser? appUser = await userManager
             .Users
             .FirstOrDefaultAsync(p => p.Email == emailOrUsername ||
@@ -26,7 +26,7 @@ internal sealed class LoginCommandHandler(
         SignInResult signInResult = await signInManager.CheckPasswordSignInAsync(appUser, request.Password, true);
         if (signInResult.IsLockedOut)
         {
-            TimeSpan? timeSpan = appUser.LockoutEnd - DateTime.Now;
+            TimeSpan? timeSpan = appUser.LockoutEnd - DateTime.UtcNow;
             if (timeSpan is not null)
             {
                 return Result<LoginCommandResponse>.Failure($"Password entered incorrectly 3 times! Wait {Math.Ceiling(timeSpan.Value.TotalSeconds)} seconds.");

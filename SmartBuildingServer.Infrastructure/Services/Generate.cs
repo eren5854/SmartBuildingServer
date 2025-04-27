@@ -8,7 +8,7 @@ internal class Generate : IGenerate
 {
     public string GenerateDeviceSerialNo(Device device)
     {
-        DateTime date = DateTime.Now;
+        DateTime date = DateTime.UtcNow;
         string formattedDate = date.ToString("ddMMyy");
 
         var type = device.DeviceType.Name switch

@@ -26,7 +26,7 @@ internal sealed class UpdateDeviceCommandHandler(
         }
 
         mapper.Map(request, device);
-        device.UpdatedAt = DateTime.Now;
+        device.UpdatedAt = DateTime.UtcNow;
         device.UpdatedBy = "Admin";
 
         deviceRepository.Update(device);

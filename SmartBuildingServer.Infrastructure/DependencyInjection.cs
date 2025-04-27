@@ -15,9 +15,16 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        //services.AddDbContext<ApplicationDbContext>(options =>
+        //{
+        //    options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
+        //});
+
+        DotNetEnv.Env.Load();
+        var connectionString = Environment.GetEnvironmentVariable("DEFAULT_CONNECTION");
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
+            options.UseNpgsql(connectionString);
         });
 
         services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
