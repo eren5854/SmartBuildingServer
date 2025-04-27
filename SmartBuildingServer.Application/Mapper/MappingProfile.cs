@@ -5,6 +5,7 @@ using SmartBuildingServer.Application.Features.Devices.UpdateDevice;
 using SmartBuildingServer.Application.Features.Rooms.CreateRoom;
 using SmartBuildingServer.Application.Features.Rooms.UpdateRoom;
 using SmartBuildingServer.Application.Features.SensorDatas.CreateSensorData;
+using SmartBuildingServer.Application.Features.SensorDatas.UpdateSensorData;
 using SmartBuildingServer.Domain.Rooms;
 using SmartBuildingServer.Domain.Sensors;
 using SmartBuildingServer.Domain.Users;
@@ -23,5 +24,6 @@ public sealed class MappingProfile : Profile
         CreateMap<UpdateDeviceCommand, Device>();
 
         CreateMap<CreateSensorDataCommand, SensorData>();
+        CreateMap<UpdateSensorDataCommand, SensorData>();
     }
 }
