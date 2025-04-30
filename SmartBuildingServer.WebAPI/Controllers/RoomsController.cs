@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartBuildingServer.Application.Features.Rooms.CreateRoom;
 using SmartBuildingServer.Application.Features.Rooms.DeleteRoom;
@@ -10,6 +11,7 @@ using SmartBuildingServer.WebAPI.Abstractions;
 
 namespace SmartBuildingServer.WebAPI.Controllers;
 
+[Authorize(AuthenticationSchemes = "Bearer")]
 public sealed class RoomsController : ApiController
 {
     public RoomsController(IMediator mediator) : base(mediator)
