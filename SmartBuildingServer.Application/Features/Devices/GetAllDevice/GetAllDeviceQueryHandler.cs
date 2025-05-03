@@ -10,7 +10,7 @@ internal sealed class GetAllDeviceQueryHandler(
 {
     public async Task<Result<List<Device>>> Handle(GetAllDeviceQuery request, CancellationToken cancellationToken)
     {
-        List<Device> devices = await deviceRepository.GetAll().OrderBy(o => o.CreatedAt).ToListAsync(cancellationToken);
+        List<Device> devices = await deviceRepository.GetAll().Include(i => i.SensorDatas!.OrderBy(o => o.PinNumber)).OrderBy(o => o.CreatedAt).ToListAsync(cancellationToken);
         return Result<List<Device>>.Succeed(devices);
     }
 }

@@ -39,7 +39,7 @@ namespace SmartBuildingServer.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("SmartBuildingServer.Domain.Logs.SensorDataHistory", b =>
@@ -125,7 +125,7 @@ namespace SmartBuildingServer.Infrastructure.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("Room");
+                    b.ToTable("Room", (string)null);
                 });
 
             modelBuilder.Entity("SmartBuildingServer.Domain.Sensors.Device", b =>
@@ -182,7 +182,7 @@ namespace SmartBuildingServer.Infrastructure.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Device");
+                    b.ToTable("Device", (string)null);
                 });
 
             modelBuilder.Entity("SmartBuildingServer.Domain.Sensors.SensorData", b =>
@@ -235,7 +235,7 @@ namespace SmartBuildingServer.Infrastructure.Migrations
 
                     b.HasIndex("DeviceId");
 
-                    b.ToTable("SensorData");
+                    b.ToTable("SensorData", (string)null);
                 });
 
             modelBuilder.Entity("SmartBuildingServer.Domain.Users.AppUser", b =>
@@ -340,7 +340,7 @@ namespace SmartBuildingServer.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("SmartBuildingServer.Domain.Logs.SensorDataHistory", b =>

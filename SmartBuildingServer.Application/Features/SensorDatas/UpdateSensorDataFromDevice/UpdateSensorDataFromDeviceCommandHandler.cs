@@ -1,17 +1,21 @@
 ﻿using ED.GenericRepository;
 using ED.Result;
 using MediatR;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using SmartBuildingServer.Domain.Enums;
 using SmartBuildingServer.Domain.Logs;
 using SmartBuildingServer.Domain.Repositories;
 using SmartBuildingServer.Domain.Sensors;
+using SmartBuildingServer.Infrastructure.Hubs;
 
 namespace SmartBuildingServer.Application.Features.SensorDatas.UpdateSensorDataFromDevice;
 internal sealed class UpdateSensorDataFromDeviceCommandHandler(
     IDeviceRepository deviceRepository,
     ISensorDataRepository sensorDataRepository,
     ISensorDataHistoryRepository sensorDataHistoryRepository,
-    IUnitOfWork unitOfWork) : IRequestHandler<UpdateSensorDataFromDeviceCommand, Result<string>>
+    IUnitOfWork unitOfWork,
+    IHubContext<SensorHub> hubContext) : IRequestHandler<UpdateSensorDataFromDeviceCommand, Result<string>>
 {
     public async Task<Result<string>> Handle(UpdateSensorDataFromDeviceCommand request, CancellationToken cancellationToken)
     {
@@ -45,9 +49,17 @@ internal sealed class UpdateSensorDataFromDeviceCommandHandler(
 
             await sensorDataHistoryRepository.AddAsync(sensorDataHistory, cancellationToken);
             sensorDataRepository.Update(sensorData);
-        }
 
-       
+            if (sensorData.SensorType == SensorTypeSmartEnum.Temperature)
+            {
+                await hubContext.Clients.All.SendAsync("Temp", Result<SensorData>.Succeed(sensorData));
+            }
+            if (sensorData.SensorType == SensorTypeSmartEnum.Light)
+            {
+                await hubContext.Clients.All.SendAsync("Lights", Result<SensorData>.Succeed(sensorData));
+            }
+
+        }
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
 

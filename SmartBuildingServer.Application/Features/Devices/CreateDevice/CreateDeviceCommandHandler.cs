@@ -3,6 +3,7 @@ using ED.GenericRepository;
 using ED.Result;
 using MediatR;
 using SmartBuildingServer.Application.Services;
+using SmartBuildingServer.Domain.Enums;
 using SmartBuildingServer.Domain.Repositories;
 using SmartBuildingServer.Domain.Sensors;
 

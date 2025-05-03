@@ -28,7 +28,7 @@ public sealed class Device : Entity
     //    RoomDescription = Room?.RoomDescription,
     //};
 
-    [JsonIgnore]
+    
     public Guid? RoomId { get; set; }
     [JsonIgnore]
     public Room? Room { get; set; }
