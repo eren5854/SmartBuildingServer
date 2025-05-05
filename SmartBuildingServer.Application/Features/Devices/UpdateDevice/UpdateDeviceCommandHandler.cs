@@ -2,6 +2,7 @@
 using ED.GenericRepository;
 using ED.Result;
 using MediatR;
+using SmartBuildingServer.Application.Services;
 using SmartBuildingServer.Domain.Repositories;
 using SmartBuildingServer.Domain.Sensors;
 
@@ -9,11 +10,12 @@ namespace SmartBuildingServer.Application.Features.Devices.UpdateDevice;
 internal sealed class UpdateDeviceCommandHandler(
     IDeviceRepository deviceRepository,
     IUnitOfWork unitOfWork,
+    IGenerate generate,
     IMapper mapper) : IRequestHandler<UpdateDeviceCommand, Result<string>>
 {
     public async Task<Result<string>> Handle(UpdateDeviceCommand request, CancellationToken cancellationToken)
     {
-        var isDeviceExists = await deviceRepository.GetByExpressionAsync(g => g.DeviceName == request.DeviceName, cancellationToken);
+        var isDeviceExists = await deviceRepository.GetByExpressionAsync(g => g.DeviceName == request.DeviceName && g.Id != request.Id, cancellationToken);
         if (isDeviceExists is not null)
         {
             return Result<string>.Failure("Cihaz adı zaten mevcut!!");
@@ -26,6 +28,7 @@ internal sealed class UpdateDeviceCommandHandler(
         }
 
         mapper.Map(request, device);
+        device.SerialNo = generate.GenerateDeviceSerialNo(device);
         device.UpdatedAt = DateTime.UtcNow;
         device.UpdatedBy = "Admin";
 

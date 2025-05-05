@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartBuildingServer.Application.Features.SensorDatas.CreateSensorData;
 using SmartBuildingServer.Application.Features.SensorDatas.DeleteSensorData;
+using SmartBuildingServer.Application.Features.SensorDatas.GetSensorData;
 using SmartBuildingServer.Application.Features.SensorDatas.GetSensorDataFormDevice;
 using SmartBuildingServer.Application.Features.SensorDatas.UpdateSensorData;
 using SmartBuildingServer.Application.Features.SensorDatas.UpdateSensorDataFromDevice;
@@ -28,6 +29,13 @@ public sealed class SensorDatasController : ApiController
     public async Task<IActionResult> GetFromDevice(string secretKey, CancellationToken cancellationToken)
     {
         var response = await _mediator.Send(new GetSensorDataFormDeviceQuery(secretKey), cancellationToken);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Get(Guid Id, CancellationToken cancellationToken)
+    {
+        var response = await _mediator.Send(new GetSensorDataQuery(Id), cancellationToken);
         return StatusCode(response.StatusCode, response);
     }
 

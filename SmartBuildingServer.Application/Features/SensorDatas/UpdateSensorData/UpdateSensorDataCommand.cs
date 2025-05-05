@@ -8,5 +8,5 @@ public sealed record UpdateSensorDataCommand(
     SensorTypeSmartEnum SensorType,
     string DataName,
     int PinNumber,
-    double Value,
+    double? Value,
     string? Value2) : IRequest<Result<string>>;
