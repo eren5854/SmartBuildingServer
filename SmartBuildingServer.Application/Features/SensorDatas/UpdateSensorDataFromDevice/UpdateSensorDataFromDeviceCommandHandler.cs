@@ -59,6 +59,11 @@ internal sealed class UpdateSensorDataFromDeviceCommandHandler(
                 await hubContext.Clients.All.SendAsync("Lights", Result<SensorData>.Succeed(sensorData));
             }
 
+            if (sensorData.SensorType == SensorTypeSmartEnum.Humidity)
+            {
+                await hubContext.Clients.All.SendAsync("Hum", Result<SensorData>.Succeed(sensorData));
+            }
+
         }
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
