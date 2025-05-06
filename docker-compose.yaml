@@ -1,0 +1,11 @@
+services:
+
+
+  api:
+    build:
+      context: .
+      dockerfile: SmartBuildingServer.WebAPI/Dockerfile
+    image: smart-building-server
+    container_name: SmartBuildingServer
+    ports:
+      - 54080:8080
