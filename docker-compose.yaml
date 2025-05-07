@@ -8,4 +8,4 @@ services:
     image: smart-building-server
     container_name: SmartBuildingServer
     ports:
-      - 54080:8080
+      - 54100:54100
