@@ -1,5 +1,5 @@
-services:
 
+services:
 
   api:
     build:
@@ -8,7 +8,12 @@ services:
     image: smart-building-server
     container_name: SmartBuildingServer
     ports:
-      - 54080:8080
+      - "54080:8080"
     networks:
-      smartnet:
-        driver: bridge
+      - smartnet
+    depends_on:
+      - postgresql   # opsiyonel, WebAPI’nin başlamasını beklemesi için
+
+networks:
+  smartnet:
+    external: true
