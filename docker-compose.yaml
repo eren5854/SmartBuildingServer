@@ -9,10 +9,3 @@ services:
     container_name: SmartBuildingServer
     ports:
       - "54080:8080"
-    networks:
-      - smartnet
-
-networks:
-  smartnet:
-    external: true
-    name: bridge
