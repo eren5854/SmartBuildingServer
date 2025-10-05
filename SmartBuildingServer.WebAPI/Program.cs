@@ -24,6 +24,7 @@ builder.Services.AddCors(options =>
     {
         policy
             .WithOrigins("http://localhost:4200")
+            .WithOrigins("http://localhost:54085")
             .WithOrigins("http://188.132.232.172:54085")
             .WithOrigins("http://100.127.177.109:54085")
             .WithOrigins("https://smartbuilding.erendelibas.xyz")
