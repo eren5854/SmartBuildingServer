@@ -11,8 +11,6 @@ services:
       - "54080:8080"
     networks:
       - smartnet
-    depends_on:
-      - postgresql   # opsiyonel, WebAPI’nin başlamasını beklemesi için
 
 networks:
   smartnet:
