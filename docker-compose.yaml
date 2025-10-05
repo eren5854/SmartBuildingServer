@@ -10,4 +10,5 @@ services:
     ports:
       - 54080:8080
     networks:
-      - bridge
+      smartnet:
+        driver: bridge
