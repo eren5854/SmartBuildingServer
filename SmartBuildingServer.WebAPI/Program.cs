@@ -28,7 +28,7 @@ builder.Services.AddCors(options =>
             .WithOrigins("http://localhost:54085")
             .WithOrigins("http://188.132.232.172:54085")
             .WithOrigins("http://100.127.177.109:54085")
-            .WithOrigins("https://smart-building.erendelibas.xyz")
+            .WithOrigins("https://smartbuilding.erendelibas.xyz")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials(); // önemli!
