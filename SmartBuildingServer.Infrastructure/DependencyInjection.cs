@@ -15,12 +15,13 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        DotNetEnv.Env.Load();
+        var connectionString = configuration["DEFAULT_CONNECTION"];
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("DEFAULT_CONNECTION"));
+            options.UseNpgsql(connectionString);
         });
 
-        //DotNetEnv.Env.Load();
         //var connectionString = Environment.GetEnvironmentVariable("DEFAULT_CONNECTION");
         //services.AddDbContext<ApplicationDbContext>(options =>
         //{

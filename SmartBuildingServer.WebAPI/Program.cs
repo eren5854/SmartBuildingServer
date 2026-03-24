@@ -1,3 +1,4 @@
+using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using SmartBuildingServer.Application;
@@ -7,32 +8,35 @@ using SmartBuildingServer.WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowAll",
-//        builder =>
-//        {
-//            builder.AllowAnyOrigin()
-//                   .AllowAnyMethod()
-//                   .AllowAnyHeader();
-//        });
-//});
-
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddDefaultPolicy(policy =>
     {
-        policy
-            .WithOrigins("http://localhost:4200")
-            .WithOrigins("http://localhost:54085")
-            .WithOrigins("http://188.132.232.172:54085")
-            .WithOrigins("http://100.127.177.109:54085")
-            .WithOrigins("https://smartbuilding.erendelibas.xyz")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials(); // önemli!
+        policy.SetIsOriginAllowed(origin => true)
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
 });
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAll", policy =>
+//    {
+//        policy
+//            .WithOrigins("http://localhost:4200")
+//            .WithOrigins("http://localhost:54085")
+//            .WithOrigins("http://188.132.232.172:54085")
+//            .WithOrigins("http://100.127.177.109:54085")
+//            .WithOrigins("https://smartbuilding.erendelibas.xyz")
+//            .AllowAnyHeader()
+//            .AllowAnyMethod()
+//            .AllowCredentials(); // önemli!
+//    });
+//});
+
+Env.Load();
+builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -81,7 +85,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors("AllowAll");
+//app.UseCors("AllowAll");
+app.UseCors();
 
 
 ExtensionMiddleware.CreateAdmin(app);
