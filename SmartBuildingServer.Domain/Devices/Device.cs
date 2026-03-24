@@ -15,19 +15,6 @@ public sealed class Device : Entity
     public string? SecretKey { get; set; }
 
     public DeviceTypeSmartEnum DeviceType { get; set; } = DeviceTypeSmartEnum.Other;
-
-    //[JsonIgnore]
-    //public Guid? AppUserId { get; set; }
-    //[JsonIgnore]
-    //public AppUser? AppUser { get; set; }
-
-    //public object? RoomInfo => new
-    //{
-    //    RoomId = RoomId,
-    //    RoomName = Room?.RoomName,
-    //    RoomDescription = Room?.RoomDescription,
-    //};
-
     
     public Guid? RoomId { get; set; }
     [JsonIgnore]

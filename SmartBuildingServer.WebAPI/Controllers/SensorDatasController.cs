@@ -5,6 +5,7 @@ using SmartBuildingServer.Application.Features.SensorDatas.CreateSensorData;
 using SmartBuildingServer.Application.Features.SensorDatas.DeleteSensorData;
 using SmartBuildingServer.Application.Features.SensorDatas.GetSensorData;
 using SmartBuildingServer.Application.Features.SensorDatas.GetSensorDataFormDevice;
+using SmartBuildingServer.Application.Features.SensorDatas.GetSensorDataFromDate;
 using SmartBuildingServer.Application.Features.SensorDatas.UpdateSensorData;
 using SmartBuildingServer.Application.Features.SensorDatas.UpdateSensorDataFromDevice;
 using SmartBuildingServer.WebAPI.Abstractions;
@@ -36,6 +37,13 @@ public sealed class SensorDatasController : ApiController
     public async Task<IActionResult> Get(Guid Id, CancellationToken cancellationToken)
     {
         var response = await _mediator.Send(new GetSensorDataQuery(Id), cancellationToken);
+        return StatusCode(response.StatusCode, response);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetFromDate(Guid sensorDataId, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
+    {
+        var response = await _mediator.Send(new GetSensorDataFromDateQuery(sensorDataId, startDate, endDate), cancellationToken);
         return StatusCode(response.StatusCode, response);
     }
 
