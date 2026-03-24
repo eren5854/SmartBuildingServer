@@ -7,5 +7,6 @@ services:
       dockerfile: SmartBuildingServer.WebAPI/Dockerfile
     image: smart-building-server
     container_name: SmartBuildingServer
+    restart: unless-stopped
     ports:
       - "54080:8080"

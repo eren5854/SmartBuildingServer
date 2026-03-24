@@ -8,32 +8,32 @@ using SmartBuildingServer.WebAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.SetIsOriginAllowed(origin => true)
-              .AllowAnyMethod()
-              .AllowAnyHeader()
-              .AllowCredentials();
-    });
-});
-
 //builder.Services.AddCors(options =>
 //{
-//    options.AddPolicy("AllowAll", policy =>
+//    options.AddDefaultPolicy(policy =>
 //    {
-//        policy
-//            .WithOrigins("http://localhost:4200")
-//            .WithOrigins("http://localhost:54085")
-//            .WithOrigins("http://188.132.232.172:54085")
-//            .WithOrigins("http://100.127.177.109:54085")
-//            .WithOrigins("https://smartbuilding.erendelibas.xyz")
-//            .AllowAnyHeader()
-//            .AllowAnyMethod()
-//            .AllowCredentials(); // önemli!
+//        policy.SetIsOriginAllowed(origin => true)
+//              .AllowAnyMethod()
+//              .AllowAnyHeader()
+//              .AllowCredentials();
 //    });
 //});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:4200")
+            .WithOrigins("http://localhost:54085")
+            .WithOrigins("http://188.132.232.172:54085")
+            .WithOrigins("http://100.127.177.109:54085")
+            .WithOrigins("https://smart-building.erendelibas.xyz")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); // önemli!
+    });
+});
 
 Env.Load();
 builder.Configuration.AddEnvironmentVariables();
@@ -85,8 +85,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-//app.UseCors("AllowAll");
-app.UseCors();
+app.UseCors("AllowAll");
+//app.UseCors();
 
 
 ExtensionMiddleware.CreateAdmin(app);
