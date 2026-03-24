@@ -64,6 +64,21 @@ internal sealed class UpdateSensorDataFromDeviceCommandHandler(
                 await hubContext.Clients.All.SendAsync("Hum", Result<SensorData>.Succeed(sensorData));
             }
 
+            // --- YENİ EKLENEN KISIMLAR ---
+
+            // Hareket (Motion) sensörü için yayın
+            if (sensorData.SensorType == SensorTypeSmartEnum.Motion)
+            {
+                await hubContext.Clients.All.SendAsync("Motion", Result<SensorData>.Succeed(sensorData));
+            }
+
+            // Işık Şiddeti (LDR) sensörü için yayın
+            if (sensorData.SensorType == SensorTypeSmartEnum.LDR)
+            {
+                await hubContext.Clients.All.SendAsync("LDR", Result<SensorData>.Succeed(sensorData));
+            }
+
+            // -----------------------------
         }
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
